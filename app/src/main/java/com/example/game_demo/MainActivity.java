@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     int activePlayer = 0;
     int[] gameState = {2,2,2,2,2,2,2,2,2};
     int [][] winingPosition ={{0,1,2},{3,4,5},{6,7,8},{0,3,6},{1,4,7},{2,5,8},{0,4,8},{2,4,6}};
+
     boolean gameActive =true;
 
 
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
             counter.setTranslationY(-1500);
 
+            //~getting cross and zeros~
+
             if (activePlayer == 0) {
                 counter.setImageResource(R.drawable.zero);
 
@@ -40,26 +43,45 @@ public class MainActivity extends AppCompatActivity {
             }
             counter.animate().translationYBy(1500).setDuration(300);
 
+
+            //~To stop the game if its won and getting the message~
             for (int[] winingPosition : winingPosition) {
                 if (gameState[winingPosition[0]] == gameState[winingPosition[1]] && gameState[winingPosition[1]] == gameState[winingPosition[2]] && gameState[winingPosition[0]] != 2) {
 
                     gameActive = false;
 
-                    String winner = "";
+                    String winner = "cross has won";
 
                     if (activePlayer == 1) {
-                        winner = "zero";
-                    } else {
-                        winner = "cross";
+                        winner = "zero has won";
                     }
+
+                   /* else {
+                        winner = "cross has won";
+                    }*/
+
+                   /* else
+                    {
+                        boolean gameIsOver=true;
+                        for(int counterState: gameState)
+                        {
+                            if(counterState==2) gameIsOver=false;
+                        }
+                        if(gameIsOver)
+                        {
+                            winner = "Its a draw...";
+                        }
+                        }*/
+
+
 
                     Button playAgain = (Button) findViewById(R.id.playAgainButton);
                     TextView message = (TextView) findViewById(R.id.message);
 
-                    message.setText(winner + "has won");
+                    message.setText(winner);
                     message.setVisibility(view.VISIBLE);
 
-                    playAgain.setVisibility(view.VISIBLE);
+                    //playAgain.setVisibility(view.VISIBLE);
 
                 }
 
@@ -76,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
         message.setVisibility(view.INVISIBLE);
 
-        playAgainButton.setVisibility(view.INVISIBLE);
+        //playAgainButton.setVisibility(view.INVISIBLE);
 
 
         androidx.gridlayout.widget.GridLayout gridLayout = (androidx.gridlayout.widget.GridLayout) findViewById(R.id.gridLayout);
